@@ -1,0 +1,51 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    cursor: pointer;
+    list-style: none;
+    font-size: 24px;
+    padding: 10px 15px;
+}
+
+h1 {
+    margin: 10px 0;
+}
+
+p {
+    margin: 5px 0;
+    font-size: 24px;
+}
+
+.wrapper {
+    margin: 20px;
+}
+
+.buttons {
+    width: fit-content;
+    display: flex;
+    background-color: lightblue;
+    border-radius: 7px;
+}
+
+.active {
+    color: white;
+    background-color: navy;
+}
+
+li:last-child {
+    border-bottom-right-radius: 7px;
+    border-top-right-radius: 7px;
+}
+
+li:first-child {
+    border-bottom-left-radius: 7px;
+    border-top-left-radius: 7px;
+}
+
+.status {
+    display: flex;
+    column-gap: 10px;
+}
