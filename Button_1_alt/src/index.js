@@ -2,31 +2,20 @@ import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import './index.css' 
 
-class DisplayStatus extends Component {
-    render() {
-        return (
-            (<div className="status">
-                Active one is:
-            {this.props.activeOne.active === 0 ? `` : ` ${this.props.activeOne.title}`}
-            </div>)
-        )
-    }
-}
-
-class App extends Component {
+class Single extends Component {
 
     state = {
-        title: ''
+        activeOne: ''
     }
 
     toggleClick = (e) => {
         this.setState({
-            title: e.target.getAttribute('title')
+            activeOne: e.target.getAttribute('title')
         })
     }
 
     render() {
-        const active = this.state.title;
+        const active = this.state.activeOne;
         return (
             <div className='wrapper'>
                 <h1>Single</h1>
@@ -40,7 +29,72 @@ class App extends Component {
                         >{button.title}</button>
                     ))} 
                 </div>
-                <DisplayStatus activeOne={this.state}/>
+                <DisplayStatus passingProp={this.state.activeOne}/>
+            </div>
+        )
+    }
+}
+
+class Multiple extends Component {
+
+    state = {
+        activeOne: '',
+        itemList: []
+    }
+
+    toggleClick = (e) => {
+        const targetName = e.target.getAttribute('title');
+        let itemList = this.state.itemList;
+            this.setState(state => {
+            if (!itemList.includes(' ' + targetName)) {
+                itemList = state.itemList.concat(' ' + targetName);
+            }
+                return {
+                    activeOne: targetName,
+                    itemList,
+                }
+            })
+    }
+
+    render() {
+        const itemList = this.state.itemList;
+        return (
+            <div className='wrapper'>
+                <h1>Multiple</h1>
+                <div className='buttons'>
+                    {ITEMS.map((button, index) => (
+                        <button
+                            key={index}
+                            className={itemList.includes(' ' + button.title) ? 'active' : ''}
+                            onClick={this.toggleClick}
+                            title={button.title}
+                        >{button.title}</button>
+                    ))} 
+                </div>
+                <DisplayStatus passingProp={this.state.itemList}/>
+            </div>
+        )
+    }
+}
+
+class DisplayStatus extends Component {
+    render() {
+        let passedProp = this.props.passingProp;
+        return (
+            <div className="status">
+                {typeof passedProp === 'string' ? `Selected Value:` : `Selected Values:`} 
+                {passedProp === 0 ? `` : ` ${this.props.passingProp}`}
+            </div>
+        )
+    }
+}
+
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <Single items={ITEMS}/>
+                <Multiple items={ITEMS}/>
             </div>
         )
     }
@@ -48,17 +102,14 @@ class App extends Component {
 
 const ITEMS = [
     {
-        dataNumber: 1,
         title: 'Apartment'
     },
     {
-        dataNumber: 2,
         title: 'House'
     },
     {
-        dataNumber: 3,
         title: 'Studio'
     },
 ] 
 
-ReactDOM.render(<App items={ITEMS}/>, document.getElementById('root'))
+ReactDOM.render(<App/>, document.getElementById('root'))
