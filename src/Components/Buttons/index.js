@@ -13,14 +13,14 @@ export class Single extends Component {
         })
     }
 
-    renderButtons = ({items}) => { 
+    renderButtons = ({items, active}) => { 
         return (
         items.map((button) => {
             let title = button.title;
             return (
             <button
                 key={title}
-                //className={active === title ? 'active' : ''}
+                className={active === title ? 'active' : ''}
                 onClick={() => this.toggleClick(title)}
                 title={title}
             >
@@ -37,7 +37,7 @@ export class Single extends Component {
             <div className='wrapper'>
                 <h1>Single</h1>
                 <div className='buttons'>
-                    <this.renderButtons items={this.props.items} />
+                    <this.renderButtons items={this.props.items} active={active}/>
                 </div>
                 <Status status={this.state.activeButton}/>
             </div>
@@ -72,14 +72,14 @@ export class Multiple extends Component {
             })
     }
 
-    renderButtons = ({items}) => { 
+    renderButtons = ({items, itemList}) => { 
         return (
         items.map((button) => {
             let title = button.title;
             return (
             <button
                 key={title}
-                //className={activeList.includes(button.title) ? 'active' : ''}
+                className={itemList.includes(title) ? 'active' : ''}
                 onClick={() => this.toggleClick(title)}
                 title={title}
             >
@@ -91,11 +91,12 @@ export class Multiple extends Component {
     }
 
     render() {
+        const itemList = this.state.itemList;
         return (
             <div className='wrapper'>
                 <h1>Multiple</h1>
                 <div className='buttons'>
-                <this.renderButtons items={this.props.items} />
+                <this.renderButtons items={this.props.items} itemList={itemList}/>
                 </div>
                 <Status status={this.state.itemList}/>
             </div>
