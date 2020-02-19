@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import {Single, Multiple} from './Components/Buttons/index.js';
 import {ITEMS} from './Components/Buttons/items.js';
+import {Buttons, Status} from './Components/Buttons/index.js'
 
 function App() {
   return (
     <div className="App">
-      <Single items={ITEMS}/>
-      <Multiple items={ITEMS}/>
+      <Buttons items={ITEMS}/>
     </div>
   );
 }
