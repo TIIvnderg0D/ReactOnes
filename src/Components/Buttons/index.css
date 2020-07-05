@@ -64,7 +64,6 @@ button:first-child {
 }
 
 .popWindow {
-    display: none;
     position: absolute;
     margin: 0 10px;
     width: 300px;
