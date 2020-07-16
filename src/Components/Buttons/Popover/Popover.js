@@ -14,30 +14,29 @@ function PopContent() {
     )
 }
 
-const PopButton = (props) => {
-    return (
-        <button
-            id='popOver'
-            onClick={props.toggleClick}
-        >
-            Click me to see
-        </button>
-    )
+const PopButton = () => (
+    <button
+        id='popOver'
+    >
+        Click me to see
+    </button>
+);
+
+const toggleHover = () => {
+    const popWindow = document.querySelector('.popWindow')
+    popWindow.hidden = !popWindow.hidden;
 }
 
+const withPopover = (WrappedComponent, PopWindowData) => {
 
-const PopOvered = (WrappedComponent, PopWindowData) => {
-    
     class PopWindow extends Component {
-        toggleClick = () => {
-            const popWindow = document.querySelector('.popWindow')
-            popWindow.hidden = !popWindow.hidden;
-        }
 
         render() {
             return (
-                <div className='wrapper'>
-                    <WrappedComponent toggleClick={this.toggleClick} />
+                <div className='wrapper'
+                    onMouseOver={toggleHover}
+                    onMouseOut={toggleHover}>
+                    <WrappedComponent {...this.props} />
                     <PopWindowData />
                 </div>)
         }
@@ -46,6 +45,6 @@ const PopOvered = (WrappedComponent, PopWindowData) => {
     return PopWindow;
 }
 
-const Popover = PopOvered(PopButton, PopContent);
+const Popover = withPopover(PopButton, PopContent);
 
 export default Popover;
